@@ -19,6 +19,17 @@ namespace JarvisNG.Data {
             modelBuilder.Entity<User>().HasKey(s => s.id);
 
             modelBuilder.Entity<Item>().HasKey(s => s.Name);
+
+            modelBuilder.Entity<User>().HasData(
+                new User { id = 1, Name = "Test", Balance = 0, IsAdmin = true, Password = "Password" },
+                new User { id = 2, Name = "Test2", Balance = 0, IsAdmin = false, Password = "Password" },
+                new User { id = 3, Name = "Test3", Balance = 0, IsAdmin = false, Password = "Password" },
+                new User { id = 3, Name = "Test4", Balance = 0, IsAdmin = false, Password = "Password" },
+                new User { id = 4, Name = "Test5", Balance = 0, IsAdmin = false, Password = "Password" },
+                new User { id = 5, Name = "Test6", Balance = 0, IsAdmin = false, Password = "Password" }
+                );
+
+
         }
     }
 }
