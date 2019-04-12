@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.438
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JarvisNG", "JarvisNG\JarvisNG.csproj", "{EE5031F9-BF5D-4856-BC54-1DDE393155E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JarvisNG", "JarvisNG\JarvisNG.csproj", "{EE5031F9-BF5D-4856-BC54-1DDE393155E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{C94D57F5-05A6-4069-A204-35D8762CE2BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{EE5031F9-BF5D-4856-BC54-1DDE393155E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE5031F9-BF5D-4856-BC54-1DDE393155E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE5031F9-BF5D-4856-BC54-1DDE393155E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C94D57F5-05A6-4069-A204-35D8762CE2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C94D57F5-05A6-4069-A204-35D8762CE2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C94D57F5-05A6-4069-A204-35D8762CE2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C94D57F5-05A6-4069-A204-35D8762CE2BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
