@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace JarvisNG.Models.Domain {
     public class User {
-        public int id { get; }
+        public int id { get; set; }
         public string Name { get; }
 
         public double Balance { get; set; }
 
-        public readonly bool IsAdmin;
+        public bool IsAdmin { get; set; }
 
 
 
