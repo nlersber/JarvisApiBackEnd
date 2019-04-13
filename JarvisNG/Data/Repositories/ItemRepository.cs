@@ -18,6 +18,10 @@ namespace JarvisNG.Data.Repositories {
             items = context.Items;
         }
 
+        public IEnumerable<Item> GetAll() {
+            return items;
+        }
+
         public Item GetByName(string name) {
             return items.FirstOrDefault(t => t.Name.Equals(name));
         }
@@ -33,6 +37,14 @@ namespace JarvisNG.Data.Repositories {
 
         public void RemoveItem(string name) {
             items.Remove(items.Single(s => s.Name.Equals(name)));
+        }
+
+        public void AddCountToStock(string name, int amount) {
+            items.Single(s => s.Name.Equals(name)).AddAmount(amount);
+        }
+
+        public void SubtractCountFromStock(string name, int amount) {
+            items.Single(s => s.Name.Equals(name)).SubtractAmount(amount);
         }
 
         public void SaveChanges() {

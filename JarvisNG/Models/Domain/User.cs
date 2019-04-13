@@ -7,6 +7,7 @@ namespace JarvisNG.Models.Domain {
     public class User {
         public int id { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
 
         public double Balance { get; set; }
 

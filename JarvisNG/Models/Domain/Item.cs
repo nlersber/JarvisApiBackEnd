@@ -10,6 +10,7 @@ namespace JarvisNG.Models.Domain {
         public double Price { get; set; }
         public string Name { get; set; }
         public ProductType Type { get; set; }
+        public int Count { get; set; }
 
         public Item() {
 
@@ -18,6 +19,24 @@ namespace JarvisNG.Models.Domain {
             Price = price;
             Name = name;
             Type = type;
+        }
+
+        public void AddAmount(int amount) {
+            if (amount <= 0)
+                throw new ArgumentException();
+            Count += amount;
+        }
+
+        public bool SubtractAmount(int amount) {
+            if (amount <= 0 || amount > Count)
+                throw new ArgumentException();
+            int first = Count;
+            Count -= amount;
+            return Count < first;
+        }
+
+        public bool CheckAvailability(int amount) {
+            return amount <= Count;
         }
     }
 }

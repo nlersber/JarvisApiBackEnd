@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JarvisNG.Data;
+using JarvisNG.Data.Repositories;
+using JarvisNG.Models.IRepositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +30,8 @@ namespace JarvisNG {
                 Options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
 
             services.AddScoped<DataInitializer>();
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using JarvisNG.Models.Domain;
 
 namespace JarvisNG.Models.IRepositories {
-    interface IUserRepository {
+    public interface IUserRepository {
         User GetBy(string name);
         void AddUser(User user);
         void AddBalance(string name, double balance);
