@@ -24,7 +24,7 @@ namespace JarvisNG.Data {
                 new User { id = 1, Name = "Test", Balance = 0, IsAdmin = true, Password = "Password" },
                 new User { id = 2, Name = "Test2", Balance = 0, IsAdmin = false, Password = "Password" },
                 new User { id = 3, Name = "Test3", Balance = 0, IsAdmin = false, Password = "Password" },
-                new User { id = 3, Name = "Test4", Balance = 0, IsAdmin = false, Password = "Password" },
+                new User { id = 6, Name = "Test4", Balance = 0, IsAdmin = false, Password = "Password" },
                 new User { id = 4, Name = "Test5", Balance = 0, IsAdmin = false, Password = "Password" },
                 new User { id = 5, Name = "Test6", Balance = 0, IsAdmin = false, Password = "Password" }
                 );

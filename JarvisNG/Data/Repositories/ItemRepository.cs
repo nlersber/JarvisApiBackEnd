@@ -13,12 +13,26 @@ namespace JarvisNG.Data.Repositories {
         private readonly DataContext context;
         private readonly DbSet<Item> items;
 
+        public ItemRepository(DataContext context) {
+            this.context = context;
+            items = context.Items;
+        }
+
         public Item GetByName(string name) {
             return items.FirstOrDefault(t => t.Name.Equals(name));
         }
 
         public IEnumerable<Item> GetByProductType(ProductType type) {
             return items.Where(t => t.Type == type).AsEnumerable();
+        }
+
+
+        public void AddItem(Item item) {
+            items.Add(item);
+        }
+
+        public void RemoveItem(string name) {
+            items.Remove(items.Single(s => s.Name.Equals(name)));
         }
 
         public void SaveChanges() {

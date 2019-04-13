@@ -9,6 +9,8 @@ namespace JarvisNG.Models.IRepositories {
     interface IItemRepository {
         Item GetByName(string name);
         IEnumerable<Item> GetByProductType(ProductType type);
+        void AddItem(Item item);
+        void RemoveItem(string name);
         void SaveChanges();
     }
 }
