@@ -7,6 +7,7 @@ using JarvisNG.Models.Domain.Enums;
 
 namespace JarvisNG.Models.Domain {
     public class Item {
+        public int Id { get; set; }
         public double Price { get; set; }
         public string Name { get; set; }
         public ProductType Type { get; set; }

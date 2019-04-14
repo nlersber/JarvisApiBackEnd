@@ -11,7 +11,7 @@ namespace JarvisNG.DTO {
         public string Username { get; set; }
 
         [Required]
-        [RegularExpression("?=.*?[a-zA-z0-9].{6,}$", ErrorMessage = "Password must be at least 6 characters long")]
+        [RegularExpression("[a-zA-z0-9].{6,}$", ErrorMessage = "Password must be at least 6 characters long")]
         public string Password { get; set; }
 
         [Required]
@@ -19,4 +19,4 @@ namespace JarvisNG.DTO {
         public string ConfirmPassword { get; set; }
     }
 }
-}
+

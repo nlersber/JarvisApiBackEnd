@@ -21,7 +21,9 @@ namespace JarvisNG.Data {
             modelBuilder.Entity<User>().Property(s => s.id).ValueGeneratedOnAdd();
             modelBuilder.Entity<User>().HasKey(s => s.id);
 
-            modelBuilder.Entity<Item>().HasKey(s => s.Name);
+            modelBuilder.Entity<Item>().Property(s => s.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Item>().Property(s => s.Name).IsRequired();
+            modelBuilder.Entity<Item>().HasKey(s => s.Id);
 
 
             modelBuilder.Entity<User>().HasData(
@@ -34,15 +36,15 @@ namespace JarvisNG.Data {
             );
 
             modelBuilder.Entity<Item>().HasData(
-                new Item { Name = "Cola", Price = 1.5, Type = ProductType.Beverage, Count = 50 },
-                new Item { Name = "Cola Zero", Price = 1.5, Type = ProductType.Beverage, Count = 50 },
-                new Item { Name = "Fanta", Price = 1.5, Type = ProductType.Beverage, Count = 50 },
-                new Item { Name = "Sprite", Price = 1.5, Type = ProductType.Beverage, Count = 50 },
-                new Item { Name = "Red Bull", Price = 2F, Type = ProductType.Beverage, Count = 50 },
-                new Item { Name = "Red Bull Zero", Price = 2F, Type = ProductType.Beverage, Count = 50 },
-                new Item { Name = "Water", Price = 1F, Type = ProductType.Beverage, Count = 50 },
-                new Item { Name = "Pizza", Price = 2.5, Type = ProductType.Food, Count = 50 },
-                new Item { Name = "Hot Dog", Price = 1.5, Type = ProductType.Food, Count = 50 }
+                new Item { Id = 1, Name = "Cola", Price = 1.5, Type = ProductType.Beverage, Count = 50 },
+                new Item { Id = 2, Name = "Cola Zero", Price = 1.5, Type = ProductType.Beverage, Count = 50 },
+                new Item { Id = 3, Name = "Fanta", Price = 1.5, Type = ProductType.Beverage, Count = 50 },
+                new Item { Id = 4, Name = "Sprite", Price = 1.5, Type = ProductType.Beverage, Count = 50 },
+                new Item { Id = 5, Name = "Red Bull", Price = 2F, Type = ProductType.Beverage, Count = 50 },
+                new Item { Id = 6, Name = "Red Bull Zero", Price = 2F, Type = ProductType.Beverage, Count = 50 },
+                new Item { Id = 7, Name = "Water", Price = 1F, Type = ProductType.Beverage, Count = 50 },
+                new Item { Id = 8, Name = "Pizza", Price = 2.5, Type = ProductType.Food, Count = 50 },
+                new Item { Id = 9, Name = "Hot Dog", Price = 1.5, Type = ProductType.Food, Count = 50 }
             );
 
         }
