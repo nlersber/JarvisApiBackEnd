@@ -32,6 +32,12 @@ namespace JarvisNG {
             services.AddScoped<DataInitializer>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddOpenApiDocument(c => {
+                c.DocumentName = "apidocs";
+                c.Title = "Jarvis API";
+                c.Version = "v1";
+                c.Description = "The Jarvis API documentation description.";
+            }); //for OpenAPI 3.0 else AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +52,9 @@ namespace JarvisNG {
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwaggerUi3();
+            app.UseSwagger();
+
 
             initializer.InitializeData();
         }

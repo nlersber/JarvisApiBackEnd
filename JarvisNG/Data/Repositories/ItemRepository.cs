@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JarvisNG.DTO;
 using JarvisNG.Models.Domain;
 using JarvisNG.Models.Domain.Enums;
 using JarvisNG.Models.IRepositories;
@@ -26,8 +27,12 @@ namespace JarvisNG.Data.Repositories {
             return items.FirstOrDefault(t => t.Name.Equals(name));
         }
 
+        public Item GetById(int id) {
+            return items.FirstOrDefault(s => s.Id == id);
+        }
+
         public IEnumerable<Item> GetByProductType(ProductType type) {
-            return items.Where(t => t.Type == type).AsEnumerable();
+            return items.Where(t => t.Category == type).AsEnumerable();
         }
 
 
@@ -39,12 +44,12 @@ namespace JarvisNG.Data.Repositories {
             items.Remove(items.Single(s => s.Name.Equals(name)));
         }
 
-        public void AddCountToStock(string name, int amount) {
-            items.Single(s => s.Name.Equals(name)).AddAmount(amount);
+        public void AddCountToStock(int id, int amount) {
+            items.Single(s => s.Id == id).AddAmount(amount);
         }
 
-        public void SubtractCountFromStock(string name, int amount) {
-            items.Single(s => s.Name.Equals(name)).SubtractAmount(amount);
+        public void SubtractCountFromStock(int id, int amount) {
+            items.Single(s => s.Id == id).SubtractAmount(amount);
         }
 
         public void SaveChanges() {

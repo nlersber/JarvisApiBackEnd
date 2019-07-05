@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace JarvisNG.Models.Domain.Enums {
     public enum ProductType {
-        Beverage,
-        Food
+        Beverage=1,
+        Food=2
     }
 }

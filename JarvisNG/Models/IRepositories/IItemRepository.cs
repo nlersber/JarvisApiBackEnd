@@ -9,11 +9,13 @@ namespace JarvisNG.Models.IRepositories {
     public interface IItemRepository {
         IEnumerable<Item> GetAll();
         Item GetByName(string name);
+
+        Item GetById(int id);
         IEnumerable<Item> GetByProductType(ProductType type);
         void AddItem(Item item);
         void RemoveItem(string name);
-        void AddCountToStock(string name, int amount);
-        void SubtractCountFromStock(string name, int amount);
+        void AddCountToStock(int id, int amount);
+        void SubtractCountFromStock(int id, int amount);
         void SaveChanges();
     }
 }

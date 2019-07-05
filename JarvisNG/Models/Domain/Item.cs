@@ -8,9 +8,10 @@ using JarvisNG.Models.Domain.Enums;
 namespace JarvisNG.Models.Domain {
     public class Item {
         public int Id { get; set; }
-        public double Price { get; set; }
         public string Name { get; set; }
-        public ProductType Type { get; set; }
+        public double Price { get; set; }
+
+        public ProductType Category { get; set; }
         public int Count { get; set; }
 
         public Item() {
@@ -19,7 +20,7 @@ namespace JarvisNG.Models.Domain {
         public Item(double price, string name, ProductType type) {
             Price = price;
             Name = name;
-            Type = type;
+            Category = type;
         }
 
         public void AddAmount(int amount) {

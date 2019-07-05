@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace JarvisNG.Models.Domain {
     public class User {
+        public static User DEFAULT {
+            get { return new User { id = 1, Name = "Default", Balance = 200, IsAdmin = true, Password = "Password" }; }
+        }
         public int id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -46,10 +49,14 @@ namespace JarvisNG.Models.Domain {
 
         public bool SubtractBalance(double amount) {
             if (amount <= 0 || amount > Balance)
-                throw new ArgumentException();
+                throw new ArgumentException("Amount: " + amount + ", Balance: " + Balance);
             double first = Balance;
             Balance -= amount;
             return Balance < first;
+        }
+
+        public override String ToString() {
+            return this.Name + " " + this.id;
         }
 
     }

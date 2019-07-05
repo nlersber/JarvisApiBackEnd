@@ -25,12 +25,12 @@ namespace JarvisNG.Data.Repositories {
             users.Add(user);
         }
 
-        public void AddBalance(string name, double balance) {
-            users.Single(s => s.Name.Equals(name)).AddBalance(balance);
+        public void AddBalance(int id, double balance) {
+            users.Single(s => s.id == id).AddBalance(balance);
         }
 
-        public void SubtractBalance(string name, double balance) {
-            users.Single(s => s.Name.Equals(name)).SubtractBalance(balance);
+        public void SubtractBalance(int id, double balance) {
+            users.Single(s => s.id == id).SubtractBalance(balance);
         }
 
         public void MakeAdmin(string name) {
@@ -39,6 +39,10 @@ namespace JarvisNG.Data.Repositories {
 
         public void RemoveAdmin(string name) {
             users.Single(s => s.Name.Equals(name)).IsAdmin = false;
+        }
+
+        public User GetDefault() {
+            return context.Users.FirstOrDefault(s => s.Name == "Default");
         }
 
         public void SaveChanges() {

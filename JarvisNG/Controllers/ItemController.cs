@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JarvisNG.DTO;
 using JarvisNG.Models.Domain;
 using JarvisNG.Models.Domain.Enums;
 using JarvisNG.Models.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace JarvisNG.Controllers {
+    [ApiConventionType(typeof(DefaultApiConventions))]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class ItemController : ControllerBase {
@@ -21,13 +26,15 @@ namespace JarvisNG.Controllers {
         }
 
         [HttpGet]
-        public IEnumerable<Item> GetAll() {
-            return itemRepo.GetAll().OrderBy(s => s.Type).ThenBy(s => s.Name);
+        public IEnumerable<Item> GetItems() {
+            return itemRepo.GetAll().OrderBy(s => s.Category).ThenBy(s => s.Price).ThenBy(s => s.Name);
         }
 
-        [HttpGet]
-        public IEnumerable<Item> GetByType(string type) {
-            return itemRepo.GetByProductType((ProductType)Enum.Parse(typeof(ProductType), type)).OrderBy(s => s.Name);
+        [HttpGet("{id}")]
+        public IEnumerable<Item> GetByType(int id) {
+            return itemRepo.GetByProductType((ProductType)id).OrderBy(s => s.Price).ThenBy(s => s.Name);
         }
+
+
     }
 }
