@@ -6,10 +6,29 @@ using System.Threading.Tasks;
 namespace JarvisNG.Models.Domain {
     public class Order {
         public Dictionary<Item, int> Items { get; set; }
+        public IEnumerable<Item> ItemsList { get; }
         public User User { get; set; }
         public int Id { get; set; }
 
-        public bool checkAvailability() {
+        public Order() {
+
+        }
+
+        public Order(Dictionary<Item, int> Items, User User) {
+            this.Items = Items;
+            this.User = User;
+            flatten(Items);
+        }
+
+        private flatten(Dictionary<Item, int> Items) {
+            ItemsList = new IEnumerable<Item>();
+            foreach (KeyValuePair<Item, int> entry in ItemsList) {
+                for (int i = 0; i < entry.Value; i++) 
+                    ItemsList.Add(entry.Key);
+            }
+        }
+
+        public bool CheckAvailability() {
             return Items.All(s => s.Key.CheckAvailability(s.Value));
         }
 
