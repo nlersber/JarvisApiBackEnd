@@ -36,7 +36,7 @@ namespace JarvisNG.Controllers {
 
 
             order.Items = dic;
-            if (!order.checkAvailability())
+            if (!order.CheckAvailability())
                 return;
 
             try {

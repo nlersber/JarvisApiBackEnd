@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace JarvisNG.Models.Domain {
     public class Order {
         public Dictionary<Item, int> Items { get; set; }
-        public IEnumerable<Item> ItemsList { get; }
+        public IList<Item> ItemsList { get; set; }
         public User User { get; set; }
         public int Id { get; set; }
 
@@ -20,12 +20,11 @@ namespace JarvisNG.Models.Domain {
             flatten(Items);
         }
 
-        private flatten(Dictionary<Item, int> Items) {
-            ItemsList = new IEnumerable<Item>();
-            foreach (KeyValuePair<Item, int> entry in ItemsList) {
-                for (int i = 0; i < entry.Value; i++) 
-                    ItemsList.Add(entry.Key);
-            }
+        private void flatten(Dictionary<Item, int> Items) {
+            ItemsList = new List<Item>();
+            foreach (var item in Items) 
+                for (int i = 0; i < item.Value; i++) 
+                    ItemsList.Add(item.Key);
         }
 
         public bool CheckAvailability() {
