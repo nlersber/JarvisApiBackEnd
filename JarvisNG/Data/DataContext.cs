@@ -10,6 +10,7 @@ namespace JarvisNG.Data {
     public class DataContext : DbContext {
         public DbSet<Item> Items { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public DataContext(DbContextOptions options) : base(options) {
         }
@@ -24,6 +25,15 @@ namespace JarvisNG.Data {
             modelBuilder.Entity<Item>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Item>().Property(s => s.Name).IsRequired();
             modelBuilder.Entity<Item>().HasKey(s => s.Id);
+
+            modelBuilder.Entity<Order>().ToTable("Order");
+            modelBuilder.Entity<Order>().Property(s => s.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Order>().HasKey(s => s.Id);
+            //modelBuilder.Entity<Order>().Property(s => s.User.id);
+            modelBuilder.Entity<Order>().HasOne(s => s.User).WithMany();
+
+            modelBuilder.Entity<OrderItemWrapper>().HasOne(s => s.Order).WithMany();
+
 
             //modelBuilder.Entity<Order>().Property(s => s.Id).ValueGeneratedOnAdd();
             //modelBuilder.Entity<Order>().Property(s => s.Items).IsRequired();
