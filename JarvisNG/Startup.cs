@@ -52,8 +52,10 @@ namespace JarvisNG {
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
             app.UseSwaggerUi3();
-            app.UseSwagger();
+
+            //app.UseSwagger();
 
 
             initializer.InitializeData();

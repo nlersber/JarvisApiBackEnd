@@ -29,20 +29,19 @@ namespace JarvisNG.Controllers {
             System.Diagnostics.Debug.WriteLine(orderDto.Items.ToString());
             Order order = new Order();
             order.User = userRepo.GetDefault();
+
+            IList<OrderItemWrapper> items = new List<OrderItemWrapper>();
             Dictionary<Item, int> dic = new Dictionary<Item, int>();
 
             foreach (OrderItemDTO item in orderDto.Items)
-                dic.Add(itemRepo.GetById(item.Id), item.Count);
+                items.Add(new OrderItemWrapper(itemRepo.GetById(item.Id), item.Count));
 
-
-            order.Items = dic;
-            if (!order.checkAvailability())
+            if (!order.CheckAvailability())
                 return;
 
             try {
                 processOrder(order);
-            }
-            catch (ArgumentException e) {
+            } catch (ArgumentException e) {
                 System.Diagnostics.Debug.WriteLine(e.Message);
                 return;
             }
@@ -54,12 +53,18 @@ namespace JarvisNG.Controllers {
             User user = order.User;
             System.Diagnostics.Debug.WriteLine(user == null ? "user is null" : user.ToString());
             System.Diagnostics.Debug.WriteLine(order == null ? "order is null" : order.ToString());
-            Dictionary<Item, int> items = order.Items;
+
+            IList<OrderItemWrapper> list = order.ItemsList;
 
             userRepo.SubtractBalance(user.id, order.GetTotal());
-            foreach (var (key, value) in items) {
-                itemRepo.SubtractCountFromStock(key.Id, value);
-            }
+
+            foreach (var item in list)
+                itemRepo.SubtractCountFromStock(item.Item.Id, item.Amount);
+
+            //foreach (var (key, value) in items) {
+            //    itemRepo.SubtractCountFromStock(key.Id, value);
+            //}
+
             userRepo.SaveChanges();
             itemRepo.SaveChanges();
         }
