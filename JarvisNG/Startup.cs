@@ -8,6 +8,7 @@ using JarvisNG.Models.IRepositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,12 +33,33 @@ namespace JarvisNG {
             services.AddScoped<DataInitializer>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddCors(options =>
+                options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()));
             services.AddOpenApiDocument(c => {
                 c.DocumentName = "apidocs";
                 c.Title = "Jarvis API";
                 c.Version = "v1";
                 c.Description = "The Jarvis API documentation description.";
             }); //for OpenAPI 3.0 else AddSwaggerDocument();
+
+            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true)
+                .AddEntityFrameworkStores<DataContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireUppercase = true;
+
+                options.Lockout.DefaultLockoutTimeSpan=TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                options.User.AllowedUserNameCharacters =
+                    "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN234567890";
+                options.User.RequireUniqueEmail = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +72,9 @@ namespace JarvisNG {
                 app.UseHsts();
             }
 
+            app.UseCors("AllowAllOrigins");
+
+
             app.UseHttpsRedirection();
             app.UseMvc();
 
@@ -58,7 +83,7 @@ namespace JarvisNG {
             //app.UseSwagger();
 
 
-            initializer.InitializeData();
+            initializer.InitializeData().Wait();
         }
     }
 }

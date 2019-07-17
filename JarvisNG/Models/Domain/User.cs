@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace JarvisNG.Models.Domain {
     public class User {
         public static User DEFAULT {
-            get { return new User { id = 1, Name = "Default", Balance = 200, IsAdmin = true, Password = "Password" }; }
+            get { return new User { id = 1, Name = "Default", Balance = 200, IsAdmin = true, Password = "Password", Email = "Default@Test.test" }; }
         }
         public int id { get; set; }
         public string Name { get; set; }

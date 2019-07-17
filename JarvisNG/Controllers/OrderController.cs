@@ -31,10 +31,14 @@ namespace JarvisNG.Controllers {
             order.User = userRepo.GetDefault();
 
             IList<OrderItemWrapper> items = new List<OrderItemWrapper>();
-            Dictionary<Item, int> dic = new Dictionary<Item, int>();
 
             foreach (OrderItemDTO item in orderDto.Items)
                 items.Add(new OrderItemWrapper(itemRepo.GetById(item.Id), item.Count));
+
+            order.ItemsList = items;
+
+            order.Time=DateTime.Now;
+            
 
             if (!order.CheckAvailability())
                 return;
@@ -61,9 +65,7 @@ namespace JarvisNG.Controllers {
             foreach (var item in list)
                 itemRepo.SubtractCountFromStock(item.Item.Id, item.Amount);
 
-            //foreach (var (key, value) in items) {
-            //    itemRepo.SubtractCountFromStock(key.Id, value);
-            //}
+            
 
             userRepo.SaveChanges();
             itemRepo.SaveChanges();

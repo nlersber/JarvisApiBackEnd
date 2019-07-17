@@ -14,7 +14,7 @@ namespace JarvisNG.Data.Repositories {
 
         public UserRepository(DataContext context) {
             this.context = context;
-            users = context.Users;
+            users = context.ShopUsers;
         }
 
         public User GetBy(string name) {
@@ -42,7 +42,7 @@ namespace JarvisNG.Data.Repositories {
         }
 
         public User GetDefault() {
-            return context.Users.FirstOrDefault(s => s.Name == "Default");
+            return context.ShopUsers.FirstOrDefault(s => s.Name == "Default");
         }
 
         public void SaveChanges() {

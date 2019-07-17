@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 namespace JarvisNG.Models.Domain {
     public class Order {
         public IList<OrderItemWrapper> ItemsList { get; set; }
-        public Dictionary<Item, int> Items { get; set; }
         public User User { get; set; }
+        public int UserId { get; set; }
         public int Id { get; set; }
+        public DateTime Time { get; set; }
 
         public Order() {
 
         }
 
-        public Order(Dictionary<Item, int> Items, User User) {
+        public Order(Dictionary<Item, int> Items, User User, DateTime Time) {
             this.User = User;
+            this.Time = Time;
             flatten(Items);
         }
 
