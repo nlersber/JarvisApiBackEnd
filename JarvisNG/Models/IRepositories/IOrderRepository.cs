@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace JarvisNG.Models.IRepositories {
-    interface IOrderRepository {
-        IEnumerable<Order> GetByUserId(int id);
-        Order GetDetailById(int id);
+    public interface IOrderRepository {
+        Task<IList<Order>> GetByUserId(int id);
+        void Add(Order order);
         void SaveChanges();
     }
 }

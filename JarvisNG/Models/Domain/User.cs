@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace JarvisNG.Models.Domain {
     public class User {
         public static User DEFAULT {
-            get { return new User { id = 1, Name = "Default", Balance = 200, IsAdmin = true, Password = "Password", Email = "Default@Test.test" }; }
+            get { return new User { id = 1, Name = "Default", Balance = 200, IsAdmin = true, Email = "Default@Test.test" }; }
         }
         public int id { get; set; }
         public string Name { get; set; }
@@ -16,7 +16,6 @@ namespace JarvisNG.Models.Domain {
 
         public bool IsAdmin { get; set; }
 
-        public string Password { get; set; }
 
 
 
@@ -25,12 +24,12 @@ namespace JarvisNG.Models.Domain {
 
         }
 
-        public User(int id, string name, double balance, bool isAdmin, string password) {
+        public User(int id, string name, double balance, bool isAdmin) {
             this.id = id;
             Name = name;
             Balance = balance;
             IsAdmin = isAdmin;
-            Password = password;
+            
         }
 
         public User(bool isAdmin, int id, string name, string password) {
@@ -38,7 +37,7 @@ namespace JarvisNG.Models.Domain {
             this.id = id;
             Name = name;
             Balance = 0;
-            Password = password;
+            
         }
 
         public void AddBalance(double amount) {

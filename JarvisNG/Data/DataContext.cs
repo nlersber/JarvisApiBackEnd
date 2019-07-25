@@ -43,7 +43,15 @@ namespace JarvisNG.Data {
             //modelBuilder.Entity<OrderItemWrapper>()
 
 
-
+            modelBuilder.Entity<User>().HasData(
+                User.DEFAULT,
+                new User { id = 2, Name = "Test", Balance = 0, IsAdmin = true, Email = "Test1@Test.test" },
+                new User { id = 3, Name = "Test2", Balance = 0, IsAdmin = false, Email = "Test2@Test.test" },
+                new User { id = 4, Name = "Test3", Balance = 0, IsAdmin = false, Email = "Test3@Test.test" },
+                new User { id = 5, Name = "Test4", Balance = 0, IsAdmin = false, Email = "Test4@Test.test" },
+                new User { id = 6, Name = "Test5", Balance = 0, IsAdmin = false, Email = "Test5@Test.test" },
+                new User { id = 7, Name = "Test6", Balance = 0, IsAdmin = false, Email = "Test6@Test.test" }
+            );
 
 
 
@@ -59,27 +67,9 @@ namespace JarvisNG.Data {
                 new Item { Id = 9, Name = "Hot Dog", Price = 1.5, Category = ProductType.Food, Count = 50 }
             );
 
-            modelBuilder.Entity<Order>().HasData(
-                new { Id = 1, UserId = 1, Time = DateTime.Now }
-            );
+            
 
-            modelBuilder.Entity<OrderItemWrapper>().HasData(
-                new {
-                    OrderId = 1,
-                    ItemId = 1,
-                    Amount = 2
-                }
-            );
 
-            modelBuilder.Entity<User>().HasData(
-                User.DEFAULT,
-                new User { id = 2, Name = "Test", Balance = 0, IsAdmin = true, Email = "Test1@Test.test" },
-                new User { id = 3, Name = "Test2", Balance = 0, IsAdmin = false, Email = "Test2@Test.test" },
-                new User { id = 4, Name = "Test3", Balance = 0, IsAdmin = false, Email = "Test3@Test.test" },
-                new User { id = 5, Name = "Test4", Balance = 0, IsAdmin = false, Email = "Test4@Test.test" },
-                new User { id = 6, Name = "Test5", Balance = 0, IsAdmin = false, Email = "Test5@Test.test" },
-                new User { id = 7, Name = "Test6", Balance = 0, IsAdmin = false, Email = "Test6@Test.test" }
-            );
 
         }
     }

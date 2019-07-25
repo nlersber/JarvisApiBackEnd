@@ -1,20 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using JarvisNG.Data;
+﻿using JarvisNG.Data;
 using JarvisNG.Data.Repositories;
 using JarvisNG.Models.IRepositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+//using JarvisNG.Data;
+//using JarvisNG.Data.Repositories;
+//using JarvisNG.Models.IRepositories;
+//using Microsoft.AspNetCore.Builder;
+//using Microsoft.AspNetCore.Hosting;
+//using Microsoft.AspNetCore.HttpsPolicy;
+//using Microsoft.AspNetCore.Identity;
+//using Microsoft.EntityFrameworkCore;
+//using Microsoft.Extensions.Configuration;
+//using Microsoft.Extensions.DependencyInjection;
+//using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Options;
 
 namespace JarvisNG {
     public class Startup {
@@ -33,6 +42,7 @@ namespace JarvisNG {
             services.AddScoped<DataInitializer>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddCors(options =>
                 options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()));
@@ -46,13 +56,12 @@ namespace JarvisNG {
             services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true)
                 .AddEntityFrameworkStores<DataContext>();
 
-            services.Configure<IdentityOptions>(options =>
-            {
+            services.Configure<IdentityOptions>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;
 
-                options.Lockout.DefaultLockoutTimeSpan=TimeSpan.FromMinutes(5);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
@@ -63,7 +72,7 @@ namespace JarvisNG {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataInitializer initializer) {
+        public void Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder app, IHostingEnvironment env, DataInitializer initializer) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
@@ -80,7 +89,7 @@ namespace JarvisNG {
 
             app.UseSwaggerUi3();
 
-            //app.UseSwagger();
+            app.UseSwagger();
 
 
             initializer.InitializeData().Wait();

@@ -17,14 +17,16 @@ namespace JarvisNG.Controllers {
 
         private readonly IItemRepository itemRepo;
         private readonly IUserRepository userRepo;
+        private readonly IOrderRepository orderRepo;
 
-        public OrderController(IItemRepository itemRepo, IUserRepository userRepo) {
+        public OrderController(IItemRepository itemRepo, IUserRepository userRepo, IOrderRepository orderRepo) {
             this.itemRepo = itemRepo;
             this.userRepo = userRepo;
+            this.orderRepo = orderRepo;
         }
 
         [HttpPost]
-        public void Post(OrderDTO orderDto) {
+        public async void Post(OrderDTO orderDto) {
             //Stuff
             System.Diagnostics.Debug.WriteLine(orderDto.Items.ToString());
             Order order = new Order();
@@ -37,15 +39,15 @@ namespace JarvisNG.Controllers {
 
             order.ItemsList = items;
 
-            order.Time=DateTime.Now;
-            
+            order.Time = DateTime.Now;
 
             if (!order.CheckAvailability())
                 return;
 
             try {
                 processOrder(order);
-            } catch (ArgumentException e) {
+            }
+            catch (ArgumentException e) {
                 System.Diagnostics.Debug.WriteLine(e.Message);
                 return;
             }
@@ -65,8 +67,10 @@ namespace JarvisNG.Controllers {
             foreach (var item in list)
                 itemRepo.SubtractCountFromStock(item.Item.Id, item.Amount);
 
-            
+            orderRepo.Add(order);
 
+
+            orderRepo.SaveChanges();
             userRepo.SaveChanges();
             itemRepo.SaveChanges();
         }
