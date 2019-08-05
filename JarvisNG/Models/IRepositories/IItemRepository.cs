@@ -14,6 +14,7 @@ namespace JarvisNG.Models.IRepositories {
         IEnumerable<Item> GetByProductType(ProductType type);
         void AddItem(Item item);
         void RemoveItem(string name);
+        void UpdateItem(Item item);
         void AddCountToStock(int id, int amount);
         void SubtractCountFromStock(int id, int amount);
         void SaveChanges();

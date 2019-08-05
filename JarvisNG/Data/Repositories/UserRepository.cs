@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JarvisNG.DTO;
 using JarvisNG.Models.Domain;
 using JarvisNG.Models.IRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,14 @@ namespace JarvisNG.Data.Repositories {
 
         public void SaveChanges() {
             context.SaveChanges();
+        }
+
+        public bool IsAdmin(string name) {
+            return context.ShopUsers.Where(s => s.Name == name).Select(s => s.IsAdmin).First();
+        }
+
+        public IEnumerable<ManagementUserDTO> GetUsers() {
+            return this.context.ShopUsers.Select(s => new ManagementUserDTO { Name = s.Name, Email = s.Email, Balance = s.Balance });
         }
     }
 }

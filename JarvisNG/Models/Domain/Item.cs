@@ -40,5 +40,13 @@ namespace JarvisNG.Models.Domain {
         public bool CheckAvailability(int amount) {
             return amount <= Count;
         }
+
+        public Item Update(Item item) {
+            Name = item.Name;
+            Category = item.Category;
+            Count = item.Count;
+            Price = item.Price;
+            return this;
+        }
     }
 }

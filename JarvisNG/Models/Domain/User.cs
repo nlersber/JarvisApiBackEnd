@@ -54,7 +54,7 @@ namespace JarvisNG.Models.Domain {
             return Balance < first;
         }
 
-        public override String ToString() {
+        public override string ToString() {
             return this.Name + " " + this.id;
         }
 

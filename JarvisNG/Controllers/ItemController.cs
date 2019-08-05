@@ -35,6 +35,12 @@ namespace JarvisNG.Controllers {
             return itemRepo.GetByProductType((ProductType)id).OrderBy(s => s.Price).ThenBy(s => s.Name);
         }
 
+        [HttpPut("{id}")]
+        public ActionResult Put([FromBody] ItemDTO Item) {
+            this.itemRepo.UpdateItem(new Item { Name = Item.Name, Id = Item.Id, Category = (ProductType)Item.Category, Price = Item.Price, Count = Item.Count });
+            return new OkResult();
+        }
+
 
     }
 }

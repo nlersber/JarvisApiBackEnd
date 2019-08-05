@@ -55,5 +55,9 @@ namespace JarvisNG.Data.Repositories {
         public void SaveChanges() {
             context.SaveChanges();
         }
+
+        public void UpdateItem(Item item) {
+            items.Where(s => s.Id == item.Id).Select(s => s.Update(item));
+        }
     }
 }
