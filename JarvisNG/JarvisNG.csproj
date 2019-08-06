@@ -5,6 +5,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <LangVersion>latest</LangVersion>
     <StartupObject>JarvisNG.Program</StartupObject>
+    <UserSecretsId>47aa3306-fda1-482b-833e-474edcb7b713</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
