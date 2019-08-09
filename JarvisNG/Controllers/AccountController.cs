@@ -53,7 +53,7 @@ namespace JarvisNG.Controllers {
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<String>> Register([FromBody] RegisterDTO model) {
-            IdentityUser iuser = new IdentityUser { UserName = model.Email, Email = model.Email };
+            IdentityUser iuser = new IdentityUser { UserName = model.Username, Email = model.Email };
             User user = new User {
                 Email = model.Email,
                 Name = model.Username
