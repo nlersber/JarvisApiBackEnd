@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using NSwag;
+using NSwag.SwaggerGeneration.Processors.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,14 +56,25 @@ namespace JarvisNG {
                 c.Title = "Jarvis API";
                 c.Version = "v1";
                 c.Description = "The Jarvis API documentation description.";
+                c.DocumentProcessors
+                    .Add(new SecurityDefinitionAppender("JWT Token",
+                        new SwaggerSecurityScheme {
+                            Type = SwaggerSecuritySchemeType.ApiKey,
+                            Name = "Authorization",
+                            In = SwaggerSecurityApiKeyLocation.Header,
+                            Description = "Copy 'Bearer' + valid JWT token into field"
+                        }));
+                c.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT Token"));
             }); //for OpenAPI 3.0 else AddSwaggerDocument();
 
             services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true)
                 .AddEntityFrameworkStores<DataContext>();
 
             services.Configure<IdentityOptions>(options => {
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireUppercase = true;
 
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);

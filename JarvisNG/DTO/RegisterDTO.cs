@@ -9,14 +9,14 @@ namespace JarvisNG.DTO {
         [Required]
         [StringLength(200, MinimumLength = 5, ErrorMessage = "Username must be at least 5 characters long")]
         public string Username { get; set; }
+        
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
         [Required]
         [RegularExpression("[a-zA-z0-9].{6,}$", ErrorMessage = "Password must be at least 6 characters long")]
         public string Password { get; set; }
-
-        [Required]
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
     }
 }
 
