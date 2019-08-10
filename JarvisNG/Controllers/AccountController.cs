@@ -87,8 +87,15 @@ namespace JarvisNG.Controllers {
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("managementusers")]
-        public ActionResult<IEnumerable<ManagementUserDTO>> GetUsers() {
+        public ActionResult<IEnumerable<UserDTO>> GetUsers() {
             return new OkObjectResult(userRepo.GetUsers());
+        }
+
+        [HttpGet("getuser")]
+        public ActionResult<UserDTO> GetUserData(string name) {
+            var iuser = this.userRepo.GetBy(name);
+            UserDTO user = new UserDTO { Name = iuser.Name, Email = iuser.Email, Balance = iuser.Balance };
+            return new OkObjectResult(user);
         }
 
 

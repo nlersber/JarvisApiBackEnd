@@ -17,6 +17,7 @@ namespace JarvisNG.Data {
         }
 
         public async Task InitializeData() {
+            /*
             context.Database.EnsureDeleted();
             if (context.Database.EnsureCreated()) {
                 foreach (var user in context.ShopUsers) {
@@ -28,7 +29,7 @@ namespace JarvisNG.Data {
 
 
                 context.SaveChanges();
-            }
+            }*/
         }
 
         private async Task CreateUser(string Name, string Password, string email) {

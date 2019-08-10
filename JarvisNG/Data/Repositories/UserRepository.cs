@@ -54,8 +54,8 @@ namespace JarvisNG.Data.Repositories {
             return context.ShopUsers.Where(s => s.Name == name).Select(s => s.IsAdmin).First();
         }
 
-        public IEnumerable<ManagementUserDTO> GetUsers() {
-            return this.context.ShopUsers.Select(s => new ManagementUserDTO { Name = s.Name, Email = s.Email, Balance = s.Balance });
+        public IEnumerable<UserDTO> GetUsers() {
+            return this.context.ShopUsers.Select(s => new UserDTO { Name = s.Name, Email = s.Email, Balance = s.Balance });
         }
     }
 }

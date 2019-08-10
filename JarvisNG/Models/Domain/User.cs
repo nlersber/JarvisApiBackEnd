@@ -36,7 +36,7 @@ namespace JarvisNG.Models.Domain {
             IsAdmin = isAdmin;
             this.id = id;
             Name = name;
-            Balance = 0;
+            Balance = 100;
             
         }
 

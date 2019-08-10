@@ -14,7 +14,7 @@ namespace JarvisNG.Models.IRepositories {
         void MakeAdmin(string name);
         bool IsAdmin(string name);
         void RemoveAdmin(string name);
-        IEnumerable<ManagementUserDTO> GetUsers();
+        IEnumerable<UserDTO> GetUsers();
 
         User GetDefault();
         void SaveChanges();
