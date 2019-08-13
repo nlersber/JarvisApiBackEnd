@@ -36,7 +36,7 @@ namespace JarvisNG.Controllers {
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<String>> CreateToken([FromBody]LoginDTO model) {
+        public async Task<ActionResult<String>> Login([FromBody]LoginDTO model) {
             bool isEmail = model.Username.Contains('@');
             var user = (isEmail ? await userManager.FindByEmailAsync(model.Username) : await userManager.FindByNameAsync(model.Username));
 
@@ -56,7 +56,8 @@ namespace JarvisNG.Controllers {
             IdentityUser iuser = new IdentityUser { UserName = model.Username, Email = model.Email };
             User user = new User {
                 Email = model.Email,
-                Name = model.Username
+                Name = model.Username,
+                Balance = 200F
             };
             var result = await userManager.CreateAsync(iuser, model.Password);
             if (result.Succeeded) {
@@ -77,19 +78,6 @@ namespace JarvisNG.Controllers {
             return new OkObjectResult(user);
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet("checkadmin")]
-        public async Task<ActionResult<Boolean>> CheckIsAdmin(string name) {
-            var user = await userManager.FindByNameAsync(name);
-            Boolean isAdmin = userRepo.IsAdmin(name);
-            return new OkObjectResult((user != null && isAdmin));//Returns if user could be found and user is an admin
-        }
-
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet("managementusers")]
-        public ActionResult<IEnumerable<UserDTO>> GetUsers() {
-            return new OkObjectResult(userRepo.GetUsers());
-        }
 
         [HttpGet("getuser")]
         public ActionResult<UserDTO> GetUserData(string name) {

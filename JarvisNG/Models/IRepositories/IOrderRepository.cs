@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JarvisNG.Models.IRepositories {
     public interface IOrderRepository {
-        Task<IList<Order>> GetByUserId(int id);
+        IList<HistoryOrder> GetByUserId(int id);
         void Add(Order order);
         void SaveChanges();
     }

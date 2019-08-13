@@ -32,11 +32,11 @@ namespace JarvisNG.Models.Domain {
             
         }
 
-        public User(bool isAdmin, int id, string name, string password) {
+        public User(bool isAdmin, int id, string name) {
             IsAdmin = isAdmin;
             this.id = id;
             Name = name;
-            Balance = 100;
+            Balance = 200;
             
         }
 

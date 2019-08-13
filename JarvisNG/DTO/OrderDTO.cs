@@ -9,5 +9,7 @@ namespace JarvisNG.DTO {
     public class OrderDTO {
         [JsonProperty("items")]
         public List<OrderItemDTO> Items { get; set; }
+        public string Date { get; set; }
+        public string User { get; set; }
     }
 }

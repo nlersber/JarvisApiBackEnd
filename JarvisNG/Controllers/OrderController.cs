@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using JarvisNG.DTO;
 using JarvisNG.Models.Domain;
 using JarvisNG.Models.IRepositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,13 +26,15 @@ namespace JarvisNG.Controllers {
             this.userRepo = userRepo;
             this.orderRepo = orderRepo;
         }
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
-        public async void Post(OrderDTO orderDto) {
+        public ActionResult Post([FromBody] OrderDTO orderDto) {
             //Stuff
-            System.Diagnostics.Debug.WriteLine(orderDto.Items.ToString());
+
             Order order = new Order();
-            order.User = userRepo.GetDefault();
+            order.User = userRepo.GetBy(orderDto.User);
+            order.Time = orderDto.Date;
+            order.UserId = order.User.id;
 
             IList<OrderItemWrapper> items = new List<OrderItemWrapper>();
 
@@ -39,26 +43,30 @@ namespace JarvisNG.Controllers {
 
             order.ItemsList = items;
 
-            order.Time = DateTime.Now;
-
             if (!order.CheckAvailability())
-                return;
+                return new BadRequestResult();
 
             try {
                 processOrder(order);
             }
             catch (ArgumentException e) {
                 System.Diagnostics.Debug.WriteLine(e.Message);
-                return;
+                return new BadRequestResult();
             }
-            System.Diagnostics.Debug.WriteLine("Placed Order in Back");
 
+            return new OkResult();
+        }
+
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
+        public ActionResult Get(string name) {
+            var result = orderRepo.GetByUserId(userRepo.GetBy(name).id);
+            return new OkObjectResult(result);
         }
 
         private void processOrder(Order order) {
             User user = order.User;
-            System.Diagnostics.Debug.WriteLine(user == null ? "user is null" : user.ToString());
-            System.Diagnostics.Debug.WriteLine(order == null ? "order is null" : order.ToString());
 
             IList<OrderItemWrapper> list = order.ItemsList;
 
@@ -75,21 +83,8 @@ namespace JarvisNG.Controllers {
             itemRepo.SaveChanges();
         }
 
-        //// GET: api/Order
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET: api/Order/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        // POST: api/Order
 
     }
+
+
 }

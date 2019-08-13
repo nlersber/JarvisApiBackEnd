@@ -9,13 +9,13 @@ namespace JarvisNG.Models.Domain {
         public User User { get; set; }
         public int UserId { get; set; }
         public int Id { get; set; }
-        public DateTime Time { get; set; }
+        public string Time { get; set; }
 
         public Order() {
 
         }
 
-        public Order(Dictionary<Item, int> Items, User User, DateTime Time) {
+        public Order(Dictionary<Item, int> Items, User User, string Time) {
             this.User = User;
             this.Time = Time;
             flatten(Items);
