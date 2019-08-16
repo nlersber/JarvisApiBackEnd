@@ -26,7 +26,7 @@ namespace JarvisNG.Data {
                     await CreateUser(user.Name, "Password", user.Email);
                 }
 
-                var doc = new User { Balance = 200F, Name = "TBD", IsAdmin = false, Email = "Email@Voor.Docent" };
+                var doc = new User { Balance = 200F, Name = "web4", IsAdmin = false, Email = "Email@Voor.Docent" };
                 context.ShopUsers.Add(doc);
                 await CreateUser(doc.Name, "gelukkiggeennetbeans", doc.Email);//Seeding account for teacher to use and test with
 
